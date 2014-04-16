@@ -1,6 +1,9 @@
+/* global app:true */
+/* exported app */
+
 'use strict';
 
-angular.module('publicApp', [
+var app = angular.module('HM-Website-App', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
