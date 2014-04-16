@@ -15,6 +15,10 @@ var app = angular.module('HM-Website-App', [
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/:slug', {
+        templateUrl: 'views/page.html',
+        controller: 'PageCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
