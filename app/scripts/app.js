@@ -7,19 +7,19 @@ var app = angular.module('HM-Website-App', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'gettext'
 ])
   .config(function ($routeProvider) {
+
     $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .when('/:slug', {
-        templateUrl: 'views/page.html',
-        controller: 'PageCtrl'
-      })
+      .when('/:lang/',           {templateUrl: 'views/main.html',    controller: 'MainCtrl'})
+      .when('/:lang/:slug',      {templateUrl: 'views/page.html',    controller: 'PageCtrl'})
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/' + config.defaultLanguage + '/'
       });
+
+  })
+  .run(function (gettextCatalog) {
+    gettextCatalog.debug = true;
   });

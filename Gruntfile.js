@@ -9,6 +9,8 @@
 
 module.exports = function (grunt) {
 
+  grunt.loadNpmTasks('grunt-angular-gettext');
+
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
@@ -349,7 +351,24 @@ module.exports = function (grunt) {
         configFile: 'karma.conf.js',
         singleRun: true
       }
+    },
+
+    /* jshint ignore:start */
+    nggettext_extract: {
+      pot: {
+        files: {
+          'po/template.pot': ['app/views/*.html']
+        }
+      },
+    },
+    nggettext_compile: {
+      all: {
+        files: {
+          'app/translations.js':['po/*.po']
+        }
+      }
     }
+    /* jshint ignore:end */
   });
 
 
@@ -395,11 +414,13 @@ module.exports = function (grunt) {
     'uglify',
     'rev',
     'usemin',
+    'nggettext_compile',
     'htmlmin'
   ]);
 
   grunt.registerTask('default', [
     'newer:jshint',
+    'nggettext_compile',
     'test',
     'build'
   ]);
