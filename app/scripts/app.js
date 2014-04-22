@@ -13,7 +13,8 @@ var app = angular.module('HM-Website-App', [
   .config(function ($routeProvider) {
 
     $routeProvider
-      .when('/:lang/',           {templateUrl: 'views/main.html',    controller: 'MainCtrl'})
+      .when('/:lang',            {templateUrl: 'views/main.html',    controller: 'MainCtrl'})
+      .when('/:lang/blog',       {templateUrl: 'views/main.html',    controller: 'MainCtrl'})
       .when('/:lang/:slug',      {templateUrl: 'views/page.html',    controller: 'PageCtrl'})
       .otherwise({
         redirectTo: '/' + config.defaultLanguage + '/'

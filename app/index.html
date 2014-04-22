@@ -29,18 +29,28 @@
 
     <div class="blog-masthead">
       <div class="container">
-        <nav class="blog-nav">
-          <a class="blog-nav-item active" href="#">Home</a>
-          <a class="blog-nav-item" href="#">New features</a>
-          <a class="blog-nav-item" href="#">Press</a>
-          <a class="blog-nav-item" href="#">New hires</a>
-          <a class="blog-nav-item" href="#">About</a>
+        <nav class="blog-nav" ng-controller="NavCtrl">
+          <a class="blog-nav-item {{ navClass(instance) }}" ng-href="#{{ instance.url }}" ng-repeat="instance in navigation">{{ instance.name }}</a>
+
+          <!-- Flags -->
+          <div class="pull-right">
+            <a class="blog-nav-item blog-nav-item-flag" ng-click="changeLanguage(lang)" ng-repeat="lang in languages"><img ng-src="images/icons/{{ lang }}.png" /></a>
+          </div>
+
         </nav>
       </div>
     </div>
 
     <!-- Add your site or application content here -->
     <div class="container" ng-view=""></div>
+
+    <!-- Footer -->
+    <div class="blog-footer">
+      <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+      <p>
+        <a href="#">Back to top</a>
+      </p>
+    </div>
 
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -65,6 +75,7 @@
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/pages.js"></script>
+        <script src="scripts/controllers/navigation.js"></script>
         <script src="scripts/services/page.js"></script>
         <!-- endbuild -->
    <script src="translations.js"></script>

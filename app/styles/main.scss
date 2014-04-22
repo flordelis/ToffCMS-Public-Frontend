@@ -65,6 +65,13 @@ h6, .h6 {
   text-decoration: none;
 }
 
+.blog-nav-item-flag {
+  padding: 8px 0 0 0;
+}
+.blog-nav-item-flag:hover {
+  cursor: pointer;
+}
+
 /* Active state gets a caret at the bottom */
 .blog-nav .active {
   color: #fff;
