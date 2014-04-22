@@ -1,23 +1,38 @@
 /* global jQuery:true */
 'use strict';
 
-app.controller('NavCtrl', function ($rootScope, $routeParams, $scope, $location, gettextCatalog) {
+app.controller('NavCtrl', function ($rootScope, $routeParams, $scope, $location, gettextCatalog, Navigation) {
 
   // Memoize this value
   var Language = function () {
-    var previouslyActive = 'hi';
+    var previouslyActive;
 
-    var updateNavigation = function () {
-      var el = {};
-      $scope.navigation = [];
+    this.updateNavigation = function () {
+      Navigation.get({language: $routeParams.lang}, function (data) {
+        var navigation = [],
+            el = {};
 
-      for (var i = 0; i < navigationData.length; i++) {
-        el = jQuery.extend({}, navigationData[i]);
+        for (var i = 0; i < data.navigation.length; i++) {
+          el = jQuery.extend({}, data.navigation[i]);
 
-        el.url = '/' + $routeParams.lang + navigationData[i].url;
+          // HTTP URLs
+          if (el.full_url.match(/^http/i)) {
+            el.url = el.full_url;
 
-        $scope.navigation.push(el);
-      }
+          // Other URLs
+          } else {
+            el.url = '#/' + $routeParams.lang + el.full_url;
+          }
+
+          // Append the instance to the main array
+          navigation.push(el);
+        }
+
+        $scope.navigation = navigation;
+
+        console.log($scope.navigation);
+      });
+
     };
 
     this.updateLanguage = function () {
@@ -30,38 +45,28 @@ app.controller('NavCtrl', function ($rootScope, $routeParams, $scope, $location,
       // Update previously active
       previouslyActive = $routeParams.lang;
 
-      updateNavigation();
       $rootScope.changeLanguage($routeParams.lang);
+      this.updateNavigation();
     };
 
     return this;
   };
 
-  // !!! ToDo: Get from API
-  var navigationData = [
-    {
-      name: 'Home',
-      url: ''
-    },
-    {
-      name: 'Blog',
-      url: '/blog'
-    },
-    {
-      name: 'Test',
-      url: '/test'
-    }
-  ];
+  var lng = new Language();
+
+
+
+
+
 
   $scope.navigation = [];
-  var lng = new Language();
 
   $rootScope.$on('$routeChangeSuccess', function () {
     lng.updateLanguage();
   });
 
   $scope.navClass = function (instance) {
-    var path = $location.path();
+    var path = '#' + $location.path();
 
     if (path.substr(-1, 1) === '/') {
       path = path.substr(0, path.length-1);

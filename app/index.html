@@ -30,7 +30,7 @@
     <div class="blog-masthead">
       <div class="container">
         <nav class="blog-nav" ng-controller="NavCtrl">
-          <a class="blog-nav-item {{ navClass(instance) }}" ng-href="#{{ instance.url }}" ng-repeat="instance in navigation">{{ instance.name }}</a>
+          <a class="blog-nav-item {{ navClass(instance) }}" ng-href="{{ instance.url }}" target="{{ instance.target }}" ng-repeat="instance in navigation">{{ instance.title }}</a>
 
           <!-- Flags -->
           <div class="pull-right">
@@ -78,6 +78,7 @@
         <script src="scripts/controllers/navigation.js"></script>
         <script src="scripts/controllers/404.js"></script>
         <script src="scripts/services/page.js"></script>
+        <script src="scripts/services/navigation.js"></script>
         <!-- endbuild -->
    <script src="translations.js"></script>
 </body>
