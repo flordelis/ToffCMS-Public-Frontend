@@ -14,6 +14,7 @@ var app = angular.module('HM-Website-App', [
 
     $routeProvider
       .when('/:lang',            {templateUrl: 'views/main.html',    controller: 'MainCtrl'})
+      .when('/:lang/404',        {templateUrl: 'views/404.html',     controller: '404Ctrl'})
       .when('/:lang/blog',       {templateUrl: 'views/main.html',    controller: 'MainCtrl'})
       .when('/:lang/:slug',      {templateUrl: 'views/page.html',    controller: 'PageCtrl'})
       .otherwise({
