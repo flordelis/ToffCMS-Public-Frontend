@@ -1,29 +1,63 @@
+/* global jQuery:true */
 'use strict';
 
 app.controller('NavCtrl', function ($rootScope, $routeParams, $scope, $location, gettextCatalog) {
 
+  // Memoize this value
+  var Language = function () {
+    var previouslyActive = 'hi';
+
+    var updateNavigation = function () {
+      var el = {};
+      $scope.navigation = [];
+
+      for (var i = 0; i < navigationData.length; i++) {
+        el = jQuery.extend({}, navigationData[i]);
+
+        el.url = '/' + $routeParams.lang + navigationData[i].url;
+
+        $scope.navigation.push(el);
+      }
+    };
+
+    this.updateLanguage = function () {
+
+      // No Need to update
+      if (previouslyActive === $routeParams.lang) {
+        return;
+      }
+
+      // Update previously active
+      previouslyActive = $routeParams.lang;
+
+      updateNavigation();
+      $rootScope.changeLanguage($routeParams.lang);
+    };
+
+    return this;
+  };
+
+  // !!! ToDo: Get from API
+  var navigationData = [
+    {
+      name: 'Home',
+      url: ''
+    },
+    {
+      name: 'Blog',
+      url: '/blog'
+    },
+    {
+      name: 'Test',
+      url: '/test'
+    }
+  ];
+
   $scope.navigation = [];
+  var lng = new Language();
 
   $rootScope.$on('$routeChangeSuccess', function () {
-
-    // !!! ToDo: Get from API
-    $scope.navigation = [
-      {
-        name: 'Home',
-        url: '/' + $routeParams.lang
-      },
-      {
-        name: 'Blog',
-        url: '/' + $routeParams.lang + '/blog'
-      },
-      {
-        name: 'Test',
-        url: '/' + $routeParams.lang + '/test'
-      }
-    ];
-
-    $rootScope.changeLanguage($routeParams.lang);
-
+    lng.updateLanguage();
   });
 
   $scope.navClass = function (instance) {
