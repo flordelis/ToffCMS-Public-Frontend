@@ -29,8 +29,6 @@ app.controller('NavCtrl', function ($rootScope, $routeParams, $scope, $location,
         }
 
         $scope.navigation = navigation;
-
-        console.log($scope.navigation);
       });
 
     };
@@ -45,7 +43,7 @@ app.controller('NavCtrl', function ($rootScope, $routeParams, $scope, $location,
       // Update previously active
       previouslyActive = $routeParams.lang;
 
-      $rootScope.changeLanguage($routeParams.lang);
+      $rootScope.changeLanguage();
       this.updateNavigation();
     };
 
@@ -53,11 +51,6 @@ app.controller('NavCtrl', function ($rootScope, $routeParams, $scope, $location,
   };
 
   var lng = new Language();
-
-
-
-
-
 
   $scope.navigation = [];
 
@@ -78,23 +71,6 @@ app.controller('NavCtrl', function ($rootScope, $routeParams, $scope, $location,
     }
 
     return '';
-  };
-
-  $rootScope.languages = ['en', 'lv', 'ru'];
-  $rootScope.changeLanguage = function (lang) {
-
-    if (lang === undefined) {
-      lang = gettextCatalog.currentLanguage;
-    }
-
-    if ($rootScope.languages.indexOf(lang) < 0) {
-      lang = config.defaultLanguage;
-    }
-
-    var path = '/' + lang + $location.path().substr(3);
-    $location.path(path).replace();
-
-    gettextCatalog.currentLanguage = lang;
   };
 
 });

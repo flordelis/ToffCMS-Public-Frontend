@@ -4,9 +4,7 @@
 'use strict';
 
 var app = angular.module('HM-Website-App', [
-  'ngCookies',
   'ngResource',
-  'ngSanitize',
   'ngRoute',
   'gettext'
 ])
@@ -18,10 +16,39 @@ var app = angular.module('HM-Website-App', [
       .when('/:lang/blog',       {templateUrl: 'views/main.html',    controller: 'MainCtrl'})
       .when('/:lang/:slug',      {templateUrl: 'views/page.html',    controller: 'PageCtrl'})
       .otherwise({
-        redirectTo: '/' + config.defaultLanguage + '/'
+        redirectTo: '/'
       });
 
   })
-  .run(function (gettextCatalog) {
+  .run(function ($rootScope, $routeParams, $location, gettextCatalog, Settings) {
     gettextCatalog.debug = true;
+
+    $rootScope.languages = ['en', 'lv', 'ru'];
+    $rootScope.changeLanguage = function (lang) {
+
+      if (lang === undefined) {
+        lang = $routeParams.lang;
+      }
+
+      // Fallback
+      if ($rootScope.languages.indexOf(lang) < 0) {
+        lang = gettextCatalog.currentLanguage;
+      }
+
+      var uriSegments = $location.path().split('/');
+      uriSegments.splice(1, 1);
+
+      var path = '/' + lang + uriSegments.join('/');
+
+      $location.path(path).replace();
+      gettextCatalog.currentLanguage = lang;
+    };
+
+    // Load the default language and redirect to it
+    if ($location.path() === '/' || $location.path() === '') {
+      Settings.get('defaultLanguage').then(function (lang) {
+        $rootScope.changeLanguage(lang);
+      });
+    }
+
   });
