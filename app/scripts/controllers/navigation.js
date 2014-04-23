@@ -14,14 +14,15 @@ app.controller('NavCtrl', function ($rootScope, $routeParams, $scope, $location,
 
         for (var i = 0; i < data.navigation.length; i++) {
           el = jQuery.extend({}, data.navigation[i]);
+          el.fullUrl = el.full_url; // jshint ignore:line
 
           // HTTP URLs
-          if (el.full_url.match(/^http/i)) {
-            el.url = el.full_url;
+          if (el.fullUrl.match(/^http/i)) {
+            el.url = el.fullUrl;
 
           // Other URLs
           } else {
-            el.url = '#/' + $routeParams.lang + el.full_url;
+            el.url = '#/' + $routeParams.lang + el.fullUrl;
           }
 
           // Append the instance to the main array
