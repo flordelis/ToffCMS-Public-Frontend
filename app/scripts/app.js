@@ -6,7 +6,8 @@
 var app = angular.module('HM-Website-App', [
   'ngResource',
   'ngRoute',
-  'gettext'
+  'gettext',
+  'btford.markdown'
 ])
   .config(function ($routeProvider) {
 
