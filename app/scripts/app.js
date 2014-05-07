@@ -15,6 +15,8 @@ var app = angular.module('HM-Website-App', [
       .when('/:lang',            {templateUrl: 'views/main.html',    controller: 'MainCtrl'})
       .when('/:lang/404',        {templateUrl: 'views/404.html',     controller: '404Ctrl'})
       .when('/:lang/blog',       {templateUrl: 'views/main.html',    controller: 'MainCtrl'})
+      .when('/:lang/gallery/:slug', {templateUrl: 'views/gallery_items.html', controller: 'GalleryitemCtrl'})
+      .when('/:lang/gallery',    {templateUrl: 'views/gallery.html', controller: 'GalleryCtrl'})
       .when('/:lang/:slug',      {templateUrl: 'views/page.html',    controller: 'PageCtrl'})
       .otherwise({
         redirectTo: '/'
@@ -43,6 +45,11 @@ var app = angular.module('HM-Website-App', [
 
       $location.path(path).replace();
       gettextCatalog.currentLanguage = lang;
+    };
+
+    $rootScope.siteUrl = function (uri) {
+      console.log(uri);
+      return '#/' + $routeParams.lang + '/' + uri;
     };
 
     // Load the default language and redirect to it

@@ -1,0 +1,16 @@
+<div class="blog-header text-center">
+  <h1 class="blog-title" translate>Galleries</h1>
+  <p class="lead blog-description">{{ gallery.title }}</p>
+</div>
+
+<div class="row gallery-items">
+
+  <a target="_blank"
+    ng-href="http://api.historymakers.lv/image/{{ item.content }}"
+    ng-repeat="item in gallery.items">
+    <img
+      class="img-thumbnail"
+      ng-src="http://api.historymakers.lv/image/small/{{ item.content }}" />
+  </a>
+
+</div>

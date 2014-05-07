@@ -1,0 +1,20 @@
+<div class="blog-header text-center">
+  <h1 class="blog-title" translate>Galleries</h1>
+  <p class="lead blog-description" translate>Crafted with love</p>
+</div>
+
+<div class="row">
+  <div class="col-sm-4" ng-repeat="gallery in galleries">
+
+    <div class="panel panel-info">
+      <div class="panel-heading"><a ng-href="{{ siteUrl('gallery/' + gallery.slug) }}">{{ gallery.title }}</a></div>
+
+      <div class="panel-body gallery-item">
+        <a ng-href="{{ siteUrl('gallery/' + gallery.slug) }}">
+          <img ng-src="http://api.historymakers.lv/image/small/{{ gallery.items[0].content }}" class="img-thumbnail" />
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>

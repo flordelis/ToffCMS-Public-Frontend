@@ -179,3 +179,19 @@ h6, .h6 {
   background-color: #f9f9f9;
   border-top: 1px solid #e5e5e5;
 }
+
+.gallery-item {
+  text-align: center;
+}
+
+.gallery-items {
+  text-align: center;
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  img {
+    margin: 5px;
+  }
+}
