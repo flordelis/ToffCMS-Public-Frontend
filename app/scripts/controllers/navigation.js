@@ -16,6 +16,11 @@ app.controller('NavCtrl', function ($rootScope, $routeParams, $scope, $location,
           el = jQuery.extend({}, data.navigation[i]);
           el.fullUrl = el.full_url; // jshint ignore:line
 
+          // Fix in case the full URL is null value
+          if (el.fullUrl === null) {
+            el.fullUrl = '';
+          }
+
           // HTTP URLs
           if (el.fullUrl.match(/^http/i)) {
             el.url = el.fullUrl;
